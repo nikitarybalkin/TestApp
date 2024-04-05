@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TestApp</string>
+    <string name="menu_logo">Меню</string>
+    <string name="basket_logo">Корзина</string>
+    <string name="profile_logo">Профиль</string>
+</resources>
