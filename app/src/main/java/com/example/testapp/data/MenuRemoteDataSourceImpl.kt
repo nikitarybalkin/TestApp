@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.testapp.data.model.Categories
 import com.example.testapp.data.model.Category
+import com.example.testapp.data.model.Food
 import com.example.testapp.data.model.FoodByCategory
 import com.example.testapp.data.model.Ingredients
 import kotlinx.coroutines.flow.Flow
@@ -16,11 +17,11 @@ class MenuRemoteDataSourceImpl @Inject constructor(private val api: FoodAPI): Me
         return api.getCategoriesMenu()
     }
 
-    override suspend fun getMenuByCategory(nameOfCategory: String): FoodByCategory {
-        return api.getMenuByCategory(nameOfCategory)
+    override suspend fun getAllMenu(): Food {
+        return api.getMenuByCategory()
     }
 
-    override suspend fun getIngredients(id: String): Ingredients {
+    override suspend fun getIngredients(id: String): Food {
         //Log.d(TAG, "aue ${api.getIngredients(id).meals[0]} dt")
         return api.getIngredients(id)
     }

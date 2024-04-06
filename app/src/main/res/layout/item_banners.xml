@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/b_shape"
+        android:background="@drawable/iv_shape"
         app:cornerRadius="10dp"
          />
 </androidx.constraintlayout.widget.ConstraintLayout>

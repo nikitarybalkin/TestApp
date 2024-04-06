@@ -69,4 +69,10 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10")
     implementation("com.squareup.moshi:moshi:1.14.0")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+    //Room
+    implementation("androidx.room:room-rxjava2:2.6.1")
+    implementation("androidx.room:room-rxjava3:2.6.1")
+    implementation("androidx.room:room-runtime:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 }

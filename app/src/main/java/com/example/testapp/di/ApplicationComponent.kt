@@ -7,7 +7,7 @@ import com.example.testapp.presentation.fragment.ProfileFragment
 import dagger.BindsInstance
 import dagger.Component
 
-@Component(modules = [ViewModelModule::class, ApiModule::class, NetworkModule::class])
+@Component(modules = [ViewModelModule::class, ApiModule::class, NetworkModule::class, DataBaseModule::class])
 interface ApplicationComponent {
 
     fun inject(fragment: MenuFragment)
@@ -20,6 +20,6 @@ interface ApplicationComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(): ApplicationComponent
+        fun create(@BindsInstance context: Context): ApplicationComponent
     }
 }

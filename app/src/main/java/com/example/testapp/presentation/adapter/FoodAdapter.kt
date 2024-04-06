@@ -12,12 +12,12 @@ import com.example.testapp.data.model.FoodByCategory
 import com.example.testapp.data.model.Ingredients
 import com.example.testapp.databinding.ItemFoodBinding
 import com.example.testapp.domain.model.FoodByCategoryModel
-import com.example.testapp.domain.model.IngredientsModel
 
 class FoodAdapter(
-    private val listOfMeals: FoodByCategoryModel?,
+    private val listOfNames: List<String>?,
     private val context: Context,
-    private val listOfIngredients: List<String>
+    private val listOfIngredients: List<String>,
+    private val listOfURLFood: List<String>
 ): Adapter<FoodViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val binding = ItemFoodBinding.inflate(LayoutInflater.from(parent.context))
@@ -25,8 +25,8 @@ class FoodAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (listOfMeals != null) {
-            listOfMeals.meals.size
+        return if (listOfNames != null) {
+            listOfNames.size
         } else {
             Log.d(TAG, "size = 0")
             return 0
@@ -36,14 +36,14 @@ class FoodAdapter(
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
         holder.binding.let {
 
-            it.tvName.text = listOfMeals!!.meals[position].strMeal
+            it.tvName.text = listOfNames!![position]
             //Log.d(TAG, "adapter")
-            Log.d(TAG, listOfMeals.toString())
+            //Log.d(TAG, listOfMeals.toString())
             it.tvDescription.text = listOfIngredients[position]
 
             Glide
                 .with(context)
-                .load(listOfMeals.meals[position].strMealThumb)
+                .load(listOfURLFood[position])
                 .into(it.ivFood)
         }
     }

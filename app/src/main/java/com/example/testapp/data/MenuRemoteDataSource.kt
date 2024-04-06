@@ -3,6 +3,7 @@ package com.example.testapp.data
 import androidx.lifecycle.LiveData
 import com.example.testapp.data.model.Categories
 import com.example.testapp.data.model.Category
+import com.example.testapp.data.model.Food
 import com.example.testapp.data.model.FoodByCategory
 import com.example.testapp.data.model.Ingredients
 import kotlinx.coroutines.flow.Flow
@@ -12,8 +13,8 @@ interface MenuRemoteDataSource {
 
     suspend fun getCategoriesMenu(): Categories
 
-    suspend fun getMenuByCategory(nameOfCategory: String): FoodByCategory
+    suspend fun getAllMenu(): Food
 
-    suspend fun getIngredients(id: String): Ingredients
+    suspend fun getIngredients(id: String): Food
 
 }

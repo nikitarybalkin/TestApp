@@ -3,6 +3,7 @@ package com.example.testapp.data
 import androidx.lifecycle.LiveData
 import com.example.testapp.data.model.Categories
 import com.example.testapp.data.model.Category
+import com.example.testapp.data.model.Food
 import com.example.testapp.data.model.FoodByCategory
 import com.example.testapp.data.model.Ingredients
 import kotlinx.coroutines.flow.Flow
@@ -30,13 +31,11 @@ interface FoodAPI {
     @GET("/api/json/v1/1/categories.php")
     suspend fun getCategoriesMenu(): Categories
 
-    @GET("/api/json/v1/1/filter.php?")
-    suspend fun getMenuByCategory(
-        @Query("c") nameOfCategory: String
-    ): FoodByCategory
+    @GET("/api/json/v1/1/search.php?s")
+    suspend fun getMenuByCategory(): Food
 
     @GET("/api/json/v1/1/lookup.php?")
     suspend fun getIngredients(
         @Query("i") id: String
-    ): Ingredients
+    ): Food
 }
