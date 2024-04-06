@@ -36,8 +36,7 @@ class MenuViewModel @Inject constructor(private val menuUseCase: MenuUseCase): V
     }
     fun getAllMenu() {
         viewModelScope.launch {
-            Log.d(TAG, "scope2 = $this")
-            //Log.d(ContentValues.TAG, "${menuUseCase.getCategoriesMenu().categories[1].strCategory} vm")
+
             try {
                 listOfAllFood.value = menuUseCase.getAllMenu()
             } catch (e: Exception) {
@@ -50,18 +49,7 @@ class MenuViewModel @Inject constructor(private val menuUseCase: MenuUseCase): V
         }
     }
     suspend fun getAllMenuFlow() {
-        try {
-            var a = menuUseCase.getAllMenuFlow()
-            a.collect{
-                for (i in 0..it.size-1) {
-
-                }
-            }
-            listOfAllFood = menuUseCase.getAllMenuFlow()
-        } catch (e: Exception) {
-            Log.d("LOL", "bd is empty")
-        }
-
+        listOfAllFoodFlow = menuUseCase.getAllMenuFlow()
     }
 
     fun insert(table: MenuModel) {

@@ -35,10 +35,6 @@ import javax.inject.Inject
 
 class MenuFragment : Fragment() {
 
-    /*@Inject
-    lateinit var foodAPI: FoodAPI
-
-     */
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var binding: FragmentMenuBinding
@@ -76,7 +72,6 @@ class MenuFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.listOfCategories.collect {
                 if (it != null) {
-                    Log.d(TAG, "collect")
                     val adapterCategories = CategoriesAdapter(
                         it,
                         { name -> switchCategory(name) }
@@ -87,7 +82,6 @@ class MenuFragment : Fragment() {
             }
         }
         foodModel?.let {
-            Log.d(TAG, "all is notnull")
             sortByCategory(listAll = it, nameOfCategory = nameOfCategory1)
         }
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
@@ -95,45 +89,24 @@ class MenuFragment : Fragment() {
                 if (it != null) {
                     foodModel = it
                     switchCategory(nameOfCategory1)
-                    Log.d(TAG, "col дошло")
                     viewModel.getAllMenuFlow()
                     viewModel.insert(createEntity(0))
                     viewModel.listOfAllFoodFlow.collect {
-                        Log.d(TAG, "менюмодель = ${it[0]!!.strCategory}")
                         if (it.isNotEmpty()) {
                             if (it[it.lastIndex] == null) {
                                 viewModel.insert(createEntity(0))
-                                Log.d(TAG, "insert yes")
-                            } else Log.d(TAG, "insert no")
-                            //cancel()
+                            }
+
                         }
 
                     }
                 }
-                //cancel()
+
             }
         }
-           /*if (foodModel != null) {
 
-                Log.d(TAG, "aue")
-            }
-
-            */
-
-
-
-
-        /*sortByCategory(
-            listAll = it,
-            nameOfCategory = "Beef"
-        )
-
-         */
     }
-    //cancel()
 
-
-    //cancel()
 
 
     fun createEntity(numbOfMeal: Int): MenuModel {

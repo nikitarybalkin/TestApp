@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.testapp.data.model.Categories
 import com.example.testapp.data.model.Category
 import com.example.testapp.data.model.Food
-import com.example.testapp.data.model.FoodByCategory
+
 import com.example.testapp.data.model.Ingredients
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.Query

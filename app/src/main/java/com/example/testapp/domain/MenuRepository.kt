@@ -1,7 +1,6 @@
 package com.example.testapp.domain
 
 import com.example.testapp.data.model.Categories
-import com.example.testapp.data.model.FoodByCategory
 import com.example.testapp.domain.model.CategoriesModel
 import com.example.testapp.domain.model.CategoryModel
 import com.example.testapp.domain.model.FoodByCategoryModel

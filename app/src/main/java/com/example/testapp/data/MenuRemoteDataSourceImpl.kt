@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import com.example.testapp.data.model.Categories
 import com.example.testapp.data.model.Category
 import com.example.testapp.data.model.Food
-import com.example.testapp.data.model.FoodByCategory
+
 import com.example.testapp.data.model.Ingredients
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class MenuRemoteDataSourceImpl @Inject constructor(private val api: FoodAPI): Me
     }
 
     override suspend fun getAllMenu(): Food {
-        return api.getMenuByCategory()
+        return api.getAllMenu()
     }
 
     override suspend fun getIngredients(id: String): Food {

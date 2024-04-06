@@ -29,7 +29,7 @@ class CategoriesAdapter(
         return CategoriesViewHolder(binding)
     }
 
-    override fun getItemCount(): Int /* = listOfCategories!!.categories.size*/{
+    override fun getItemCount(): Int {
         return if ( listOfCategories != null ) {
             listOfCategories.categories.size
         } else 0
@@ -44,16 +44,9 @@ class CategoriesAdapter(
         holder.binding.bCategory.text = listOfCategories!!.categories[position].strCategory
         holder.binding.bCategory.setOnClickListener{
             switchCategory(listOfCategories.categories[position].strCategory)
-            Log.d(TAG, "categ = ${listOfCategories.categories[position].strCategory}")
             holder.binding.bCategory.setBackgroundColor(R.color.pink)
             numbOfB = holder.oldPosition
         }
-        /*if (position == numbOfB) {
-            holder.binding.bCategory.setBackgroundColor(R.color.white_40)
-        }
-
-         */
-
 
     }
 

@@ -4,6 +4,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class FoodByCategory(
-    @Json(name = "meals")val meals: List<Meal>
+data class Food(
+    @Json(name = "meals")val meals: List<MealXX>
 )
