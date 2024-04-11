@@ -29,7 +29,7 @@ class MenuUseCase @Inject constructor(private val menuRepositoryImpl: MenuReposi
     suspend fun insert(table: MenuModel) {
         menuRepositoryImpl.insert(table)
     }
-    fun getAllMenuFlow(): Flow<List<MenuModel>> {
+    fun getAllMenuFlow(): Flow<List<MenuModel>?> {
         return menuRepositoryImpl.getAllMenuFlow()
     }
 

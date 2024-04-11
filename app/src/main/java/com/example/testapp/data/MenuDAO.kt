@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MenuDAO {
         @Query("SELECT * FROM menuEntity")
-        fun getAll(): Flow<List<MenuEntity>>
+        fun getAll(): Flow<List<MenuEntity>?>
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         suspend fun insert(menu: MenuEntity)

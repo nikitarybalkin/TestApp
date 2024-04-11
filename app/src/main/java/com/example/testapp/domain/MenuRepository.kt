@@ -14,7 +14,7 @@ interface MenuRepository {
 
     suspend fun getAllMenu(): FoodModel
 
-    fun getAllMenuFlow(): Flow<List<MenuModel>>
+    fun getAllMenuFlow(): Flow<List<MenuModel>?>
 
     suspend fun insert(table: MenuModel)
 

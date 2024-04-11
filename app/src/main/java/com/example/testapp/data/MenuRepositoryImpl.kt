@@ -26,8 +26,8 @@ class MenuRepositoryImpl @Inject constructor(private val api: MenuRemoteDataSour
         return api.getAllMenu().mapToDomain()
     }
 
-    override fun getAllMenuFlow(): Flow<List<MenuModel>> {
-        return db.getAll().map { it.map { list -> list.mapToDomain() } }
+    override fun getAllMenuFlow(): Flow<List<MenuModel>?> {
+        return db.getAll().map { it?.map { list -> list.mapToDomain() } }
     }
 
     override suspend fun insert(table: MenuModel) {

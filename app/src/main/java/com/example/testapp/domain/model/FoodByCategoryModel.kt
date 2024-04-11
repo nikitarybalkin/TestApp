@@ -1,7 +1,6 @@
 package com.example.testapp.domain.model
 
 import com.example.testapp.data.model.Categories
-import com.example.testapp.data.model.FoodByCategory
 import com.example.testapp.data.model.Meal
 
 class FoodByCategoryModel(
@@ -10,10 +9,12 @@ class FoodByCategoryModel(
 
 )
 
-fun FoodByCategory.mapToDomain() = FoodByCategoryModel(
+/*fun FoodByCategory.mapToDomain() = FoodByCategoryModel(
     meals
 )
 
 fun FoodByCategoryModel.mapToData() = FoodByCategory(
     meals
 )
+
+ */

@@ -25,7 +25,10 @@ class CategoriesAdapter(
         val binding = ItemCategoriesBinding.inflate(LayoutInflater.from(parent.context))
         if (listOfCategories != null) {
             switchCategory(listOfCategories.categories[0].strCategory)
+            Log.d(TAG, "установила на первую категорию")
         }
+
+
         return CategoriesViewHolder(binding)
     }
 

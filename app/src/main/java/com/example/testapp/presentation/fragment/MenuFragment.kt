@@ -1,22 +1,15 @@
 package com.example.testapp.presentation.fragment
 
-import android.Manifest
-import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.pm.PackageManager
+import android.net.ConnectivityManager
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import com.example.testapp.R
-import com.example.testapp.data.FoodAPI
 import com.example.testapp.databinding.FragmentMenuBinding
 import com.example.testapp.di.App
 import com.example.testapp.di.ViewModelFactory
@@ -26,11 +19,6 @@ import com.example.testapp.presentation.adapter.BannersAdapter
 import com.example.testapp.presentation.adapter.CategoriesAdapter
 import com.example.testapp.presentation.adapter.FoodAdapter
 import com.example.testapp.presentation.viewModel.MenuViewModel
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.job
-import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 class MenuFragment : Fragment() {
@@ -52,8 +40,6 @@ class MenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMenuBinding.inflate(inflater, container, false)
-        viewModel.getCategoriesMenu()
-        viewModel.getAllMenu()
         return binding.root
     }
 
@@ -65,45 +51,62 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var nameOfCategory: String = ""
-
         val adapter =
             BannersAdapter(listOf(R.drawable.banner1, R.drawable.banner2, R.drawable.banner3))
         binding.rvBannners.adapter = adapter
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.listOfCategories.collect {
-                if (it != null) {
-                    val adapterCategories = CategoriesAdapter(
-                        it,
-                        { name -> switchCategory(name) }
-                    )
-                    binding.rvCategories.adapter = adapterCategories
-                }
+        var connectivityManager = requireActivity().applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        var activeNetworkInfo = connectivityManager.activeNetworkInfo
+        if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
+            viewModel.getCategoriesMenu()
+            viewModel.getAllMenu()
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                viewModel.listOfCategories.collect {
+                    if (it != null) {
+                        val adapterCategories = CategoriesAdapter(
+                            it,
+                            { name -> switchCategory(name) }
+                        )
+                        binding.rvCategories.adapter = adapterCategories
+                    }
 
+                }
             }
-        }
-        foodModel?.let {
-            sortByCategory(listAll = it, nameOfCategory = nameOfCategory1)
-        }
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.listOfAllFood.collect {
-                if (it != null) {
-                    foodModel = it
-                    switchCategory(nameOfCategory1)
-                    viewModel.getAllMenuFlow()
-                    viewModel.insert(createEntity(0))
-                    viewModel.listOfAllFoodFlow.collect {
-                        if (it.isNotEmpty()) {
-                            if (it[it.lastIndex] == null) {
-                                viewModel.insert(createEntity(0))
+            foodModel?.let {
+                sortByCategory(listAll = it, nameOfCategory = nameOfCategory1)
+            }
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                viewModel.listOfAllFood.collect {
+                    if (it != null) {
+                        foodModel = it
+                        switchCategory(nameOfCategory1)
+                        //viewModel.getAllMenuFlow()
+                        //viewModel.insert(createEntity(0))
+                        /*viewModel.listOfAllFoodFlow.collect {
+                            if (it.isNotEmpty()) {
+                                if (it[it.lastIndex] == null) {
+                                    viewModel.insert(createEntity(0))
+                                }
+
                             }
 
-                        }
+                        }*/
+                    }
 
+                }
+            }
+        } else {
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                viewModel.getAllMenuFlow()
+                viewModel.listOfAllFoodFlow.collect {
+                    if (it?.isNotEmpty() == true) {
+                        
                     }
                 }
-
             }
+
         }
+
+
 
     }
 
@@ -177,6 +180,7 @@ class MenuFragment : Fragment() {
                 listAll = foodModel!!,
                 nameOfCategory
             )
+            nameOfCategory1 = nameOfCategory
         }
 
     }

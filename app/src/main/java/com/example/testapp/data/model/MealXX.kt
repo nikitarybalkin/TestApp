@@ -5,13 +5,13 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class MealXX(
-    @Json(name = "dateModified")val dateModified: Any,
+    @Json(name = "dateModified")val dateModified: Any?,
     @Json(name = "idMeal")val idMeal: String,
     @Json(name = "strArea")val strArea: String,
     @Json(name = "strCategory")val strCategory: String,
-    @Json(name = "strCreativeCommonsConfirmed")val strCreativeCommonsConfirmed: Any,
-    @Json(name = "strDrinkAlternate")val strDrinkAlternate: Any,
-    @Json(name = "strImageSource")val strImageSource: Any,
+    @Json(name = "strCreativeCommonsConfirmed")val strCreativeCommonsConfirmed: Any?,
+    @Json(name = "strDrinkAlternate")val strDrinkAlternate: Any?,
+    @Json(name = "strImageSource")val strImageSource: Any?,
     @Json(name = "strIngredient1")val strIngredient1: String,
     @Json(name = "strIngredient10")val strIngredient10: String,
     @Json(name = "strIngredient11")val strIngredient11: String,
