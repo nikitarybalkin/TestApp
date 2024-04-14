@@ -4,4 +4,6 @@
     <string name="menu_logo">Меню</string>
     <string name="basket_logo">Корзина</string>
     <string name="profile_logo">Профиль</string>
+    <string name="turn_on_internet">Включите интернет, пожалуйста</string>
+
 </resources>

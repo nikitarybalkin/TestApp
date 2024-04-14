@@ -16,7 +16,7 @@ import com.example.testapp.domain.model.CategoriesModel
 import com.example.testapp.domain.model.CategoryModel
 
 class CategoriesAdapter(
-    private val listOfCategories: CategoriesModel?,
+    private val listOfCategories: List<String>,
     var switchCategory: (String) -> Unit,
 
 ): Adapter<CategoriesViewHolder>() {
@@ -24,7 +24,7 @@ class CategoriesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         val binding = ItemCategoriesBinding.inflate(LayoutInflater.from(parent.context))
         if (listOfCategories != null) {
-            switchCategory(listOfCategories.categories[0].strCategory)
+            switchCategory(listOfCategories[0])
             Log.d(TAG, "установила на первую категорию")
         }
 
@@ -34,21 +34,18 @@ class CategoriesAdapter(
 
     override fun getItemCount(): Int {
         return if ( listOfCategories != null ) {
-            listOfCategories.categories.size
+            listOfCategories.size
         } else 0
     }
 
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
-        if (position == numbOfB) {
-            holder.binding.bCategory.setBackgroundColor(R.color.white_40)
-        }
-        holder.binding.bCategory.text = listOfCategories!!.categories[position].strCategory
+
+        holder.binding.bCategory.text = listOfCategories[position]
         holder.binding.bCategory.setOnClickListener{
-            switchCategory(listOfCategories.categories[position].strCategory)
-            holder.binding.bCategory.setBackgroundColor(R.color.pink)
-            numbOfB = holder.oldPosition
+            Log.d(TAG, "категория = ${holder.binding.bCategory.text}")
+            switchCategory(listOfCategories[position])
         }
 
     }
