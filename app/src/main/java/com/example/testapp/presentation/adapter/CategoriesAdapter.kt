@@ -23,11 +23,8 @@ class CategoriesAdapter(
     var numbOfB = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         val binding = ItemCategoriesBinding.inflate(LayoutInflater.from(parent.context))
-        if (listOfCategories != null) {
             switchCategory(listOfCategories[0])
             Log.d(TAG, "установила на первую категорию")
-        }
-
 
         return CategoriesViewHolder(binding)
     }

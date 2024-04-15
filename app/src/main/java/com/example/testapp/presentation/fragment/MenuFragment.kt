@@ -61,7 +61,7 @@ class MenuFragment : Fragment() {
         val connectivityManager =
             requireActivity().applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
+        if (activeNetworkInfo != null && activeNetworkInfo.isConnected) { //Проверка, подключен ли телефон к интернету
             viewModel.getCategoriesMenu()
             viewModel.getAllMenu()
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
@@ -85,13 +85,13 @@ class MenuFragment : Fragment() {
             }
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.listOfAllFood.collect {
-                    if (it?.meals?.isNotEmpty() == null) {
+                    if (it?.meals?.isNotEmpty() == true) {
                         foodModel = it
                         switchCategory(nameOfCategory1)
                     }
                 }
             }
-        } else {
+        } else { // Если нет интернета, то пытаемся загрузить ранее сохранённые данные
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.getAllMenuFlow()
                 viewModel.listOfAllFoodFlow.collect {
@@ -101,9 +101,8 @@ class MenuFragment : Fragment() {
                             { name -> switchCategory(name) }
                         )
                         binding.rvCategories.adapter = adapterCategories
-                        val foodModel = MenuToFoodConverter().menuToFoodConverter(it)
-                        sortByCategory(listAll = foodModel, nameOfCategory = nameOfCategory1)
-
+                        foodModel = MenuToFoodConverter().menuToFoodConverter(it)
+                        switchCategory(nameOfCategory1)
 
                     } else Toast.makeText(
                         requireActivity().applicationContext,
@@ -114,34 +113,26 @@ class MenuFragment : Fragment() {
             }
 
         }
-
-
     }
-    /* fun saveNameOFCat(nameOfCategory: String) {
-         nameOfCategory1 = nameOfCategory
-     }
-
-     */
 
     fun filterCategories(startList: List<MenuModel>): List<String> {
         var list: MutableList<String> = mutableListOf()
         for (i in 0..<startList.size) {
-            if (!list.contains(startList[i].strMeal)) {
-                list.add(startList[i].strMeal.toString())
+            if (!list.contains(startList[i].strCategory)) {
+                list.add(startList[i].strCategory.toString())
             }
         }
         return list
     }
 
     fun switchCategory(nameOfCategory: String) {
+        nameOfCategory1 = nameOfCategory
         if (foodModel != null) {
             sortByCategory(
                 listAll = foodModel!!,
-                nameOfCategory
+                nameOfCategory1
             )
-            nameOfCategory1 = nameOfCategory
         }
-
     }
 
     fun sortByCategory(listAll: FoodModel, nameOfCategory: String) {
@@ -161,9 +152,6 @@ class MenuFragment : Fragment() {
             listOfNames = listOfNamesOfFood,
             listOfURLFood = listOfURLOfFood
         )
-        Log.d(TAG, "ингрииенты = ${listOfIngredients}")
-        Log.d(TAG, "nameOfFood = ${listOfNamesOfFood}")
-        Log.d(TAG, "запуск фуд адаптера")
         binding.rvFood.adapter = adapterFood
     }
 
